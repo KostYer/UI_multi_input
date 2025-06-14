@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using DG.Tweening;
+using SaveLoading;
 using UnityEngine;
 using UnityEngine.UI;
 using Utils;
@@ -8,6 +10,7 @@ namespace Screens
     public class SaveLoadScreen: MenuScreen
     {
         [SerializeField] private SelectionController _selectionController;
+        [SerializeField] private List<SaveSlot> _saveSloats = new();
         
         [Header("Scroll View References")]
         public ScrollRect scrollView;  
@@ -20,11 +23,27 @@ namespace Screens
         public float padding = 60f; 
 
         private GameObject lastSelectedGameObject;
+        
+        
 
         private void Awake()
         {
             _selectionController.OnSelectionChanged += OnSelectionChanged;
+
+            if (_saveSloats.Count == 0)
+            {
+                Debug.LogError($"[SaveLoadScreen] no save slots provided");
+                return;
+            }
+
+            foreach (var slot in _saveSloats)
+            {
+                slot.OnSlotPicked += OnSlotPicked;
+            }
         }
+
+        
+
         private void OnSelectionChanged(bool isSelected, GameObject selection)
         {
             if (isSelected)
@@ -84,6 +103,11 @@ namespace Screens
             scrollView.DOComplete(); // Complete any existing tweens on the scrollView
             scrollView.DOVerticalNormalizedPos(targetNormalizedPosition, scrollDuration).SetEase(scrollEase);
         }
+        }
+        
+        private void OnSlotPicked(SaveSlot slot)
+        {
+            Debug.Log($"[SaveLoadScreen] SaveSlot event received");
         }
     }
 }
