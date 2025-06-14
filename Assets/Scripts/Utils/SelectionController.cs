@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -7,8 +8,10 @@ using UnityEngine.UI;
 namespace Utils
 {
     //hovers over active ui elements. enables correct hoverings with keys or with mouse
-    public class MouseUIHoverer: MonoBehaviour
+    public class SelectionController: MonoBehaviour
     {
+        public event Action<bool,GameObject> OnSelectionChanged;
+        
         private PointerEventData _pointerEventData;
         private List<RaycastResult> _raycastResults = new();
         private Vector3 _lastMousePosition;
@@ -16,6 +19,7 @@ namespace Utils
         private InputAction _navigateAction;
         private InputAction _clickAction;
         private bool _inputWasFromController = false;
+        private GameObject _selectedObject;
         
         void Awake()
         {
@@ -39,12 +43,16 @@ namespace Utils
         
         void Update()
         {
-            if (!Input.mousePresent)
-                return;
+            ActualizeCurrentSelection();
+            if (!Input.mousePresent) return;
+        
+            PrioritizeCurrentSelection();
+        }
 
+        private void PrioritizeCurrentSelection()
+        {
             if (_inputWasFromController)
             {
-               
                 if (IsMouseOverSelectableUI(out GameObject hovered))
                 {
                     if (EventSystem.current.currentSelectedGameObject != hovered)
@@ -53,7 +61,6 @@ namespace Utils
                         EventSystem.current.SetSelectedGameObject(EventSystem.current.currentSelectedGameObject);
                     }
                 }
-                
                 return;
             } 
 
@@ -72,7 +79,7 @@ namespace Utils
                         }
                         else
                         {
-                           EventSystem.current.SetSelectedGameObject(hovered);
+                            EventSystem.current.SetSelectedGameObject(hovered);
                         }
                     }
                 }
@@ -101,7 +108,6 @@ namespace Utils
             return false;
         }
         
-        
         private void ClearMouseHover(GameObject hoveredObject)
         {
             var pointerExitHandlers = hoveredObject.GetComponents<IPointerExitHandler>();
@@ -111,6 +117,24 @@ namespace Utils
             {
                 handler.OnPointerExit(pointerEventData);
             }
+        }
+
+        private void ActualizeCurrentSelection()
+        {
+            bool isSelected = false;
+            if (EventSystem.current == null)
+            {
+                Debug.LogWarning("[SelectionController ActualizeCurrentSelection]  No EventSystem found in the scene.");
+                OnSelectionChanged?.Invoke(false, null);
+                return;
+            }
+
+            var selectedTemp = EventSystem.current.currentSelectedGameObject;
+            if (selectedTemp == _selectedObject) return;
+            if (selectedTemp == null && _selectedObject == null) return;
+            _selectedObject = selectedTemp;
+
+            OnSelectionChanged?.Invoke(_selectedObject != null, _selectedObject);
         }
     }
 }

@@ -24,11 +24,6 @@ namespace Screens
             EventSystem.current.SetSelectedGameObject(_firstSelected);
         }
         
-        
-        
-        
-        
-       
         public void AnimatePopUp_ScaleAndMove()
         {
             float animationDuration = .15f;

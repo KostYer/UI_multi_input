@@ -29,7 +29,8 @@ public class UIController : MonoBehaviour
             {ScreenType.Settings, settingsScreen},
             {ScreenType.Credits, CreditsScreen}
         };
-        ShowScreen(ScreenType.MainMenu);
+        
+        ShowScreen(ScreenType.SaveLoad);
     }
 
     private void ShowScreen(ScreenType type) {
@@ -43,8 +44,6 @@ public class UIController : MonoBehaviour
             {
                 kv.Value.Hide();
             }
-
-
         }
     }
     
@@ -53,7 +52,7 @@ public class UIController : MonoBehaviour
         if (System.Enum.IsDefined(typeof(ScreenType), enumNum))
         {
             ScreenType type = (ScreenType)enumNum;
-            ShowScreen(type); // Call the private ShowScreen method with the enum type
+            ShowScreen(type); 
         }
         else
         {
