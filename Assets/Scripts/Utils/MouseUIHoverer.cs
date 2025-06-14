@@ -28,13 +28,12 @@ namespace Utils
         
         private void OnNavigate(InputAction.CallbackContext ctx)
         {
-       //     EventSystem.current.SetSelectedGameObject(null);
             _inputWasFromController = true;
         }
         
         private void OnMouseClick(InputAction.CallbackContext context)
         {
-            _inputWasFromController = false;
+           _inputWasFromController = false;
         }
 
         

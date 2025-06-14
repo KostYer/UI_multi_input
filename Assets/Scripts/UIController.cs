@@ -32,7 +32,7 @@ public class UIController : MonoBehaviour
         ShowScreen(ScreenType.MainMenu);
     }
 
-    public void ShowScreen(ScreenType type) {
+    private void ShowScreen(ScreenType type) {
         foreach (var kv in screens) {
             bool isActive = (kv.Key == type);
             if (isActive)
@@ -45,6 +45,19 @@ public class UIController : MonoBehaviour
             }
 
 
+        }
+    }
+    
+    public void ShowScreen(int enumNum)
+    {
+        if (System.Enum.IsDefined(typeof(ScreenType), enumNum))
+        {
+            ScreenType type = (ScreenType)enumNum;
+            ShowScreen(type); // Call the private ShowScreen method with the enum type
+        }
+        else
+        {
+            Debug.LogError($"[UIManager]: Invalid ScreenType enum number provided: {enumNum}");
         }
     }
 }
