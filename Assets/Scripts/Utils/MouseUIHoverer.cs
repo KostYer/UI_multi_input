@@ -12,15 +12,17 @@ namespace Utils
         private PointerEventData _pointerEventData;
         private List<RaycastResult> _raycastResults = new();
         private Vector3 _lastMousePosition;
-        [SerializeField] private InputActionAsset inputActions;
+        [SerializeField] private InputActionAsset _inputActions;
         private InputAction _navigateAction;
+        private InputAction _clickAction;
         private bool _inputWasFromController = false;
         
         void Awake()
         {
-           
-            _navigateAction = inputActions.FindAction("UI/Navigate"); // Adjust path to your action name
+            _navigateAction = _inputActions.FindAction("UI/Navigate");  
+            _clickAction = _inputActions.FindAction("UI/Click", true);
             _navigateAction.performed += OnNavigate;
+            _clickAction.performed += OnMouseClick;
             _navigateAction.Enable();
         }
         
@@ -29,13 +31,19 @@ namespace Utils
        //     EventSystem.current.SetSelectedGameObject(null);
             _inputWasFromController = true;
         }
+        
+        private void OnMouseClick(InputAction.CallbackContext context)
+        {
+            _inputWasFromController = false;
+        }
 
         
         void Update()
         {
             if (!Input.mousePresent)
                 return;
-           if (_inputWasFromController)
+
+            if (_inputWasFromController)
             {
                
                 if (IsMouseOverSelectableUI(out GameObject hovered))
