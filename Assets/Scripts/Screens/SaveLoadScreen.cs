@@ -9,6 +9,7 @@ namespace Screens
 {
     public class SaveLoadScreen: MenuScreen
     {
+        
         [SerializeField] private SelectionController _selectionController;
         [SerializeField] private List<SaveSlot> _saveSloats = new();
         
@@ -23,11 +24,10 @@ namespace Screens
         public float padding = 60f; 
 
         private GameObject lastSelectedGameObject;
-        
-        
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             _selectionController.OnSelectionChanged += OnSelectionChanged;
 
             if (_saveSloats.Count == 0)
@@ -42,18 +42,16 @@ namespace Screens
             }
         }
 
-        
-
         private void OnSelectionChanged(bool isSelected, GameObject selection)
         {
             if (isSelected)
             {
-                Debug.Log($"[SaveLoadScreen] Selected: {isSelected}, Selection: {selection.name}");
+        //        Debug.Log($"[SaveLoadScreen] Selected: {isSelected}, Selection: {selection.name}");
                 lastSelectedGameObject = selection;
                 ScrollToSelected(lastSelectedGameObject.GetComponent<RectTransform>());
                 return;
             }
-            Debug.Log($"[SaveLoadScreen] Selected: {isSelected}");
+      //      Debug.Log($"[SaveLoadScreen] Selected: {isSelected}");
           
         }
         
@@ -105,9 +103,39 @@ namespace Screens
         }
         }
         
-        private void OnSlotPicked(SaveSlot slot)
+        private void OnSlotPicked(SaveSlot slot )
         {
-            Debug.Log($"[SaveLoadScreen] SaveSlot event received");
+             var tab = (LoadTab) tabs[TabType.LoadSave];
+             tab.Init(slot);
+             ShowTab(TabType.LoadSave);
+             AnimatePopUp_ScaleAndMove();
         }
+        
+        public void AnimatePopUp_ScaleAndMove()
+        {
+            float animationDuration = .15f;
+            // Set initial state
+            tabs[TabType.LoadSave].GetComponent<RectTransform>().localScale = Vector3.zero; // Start from scale 0
+            
+
+            Sequence sequence = DOTween.Sequence();
+
+            // Step 1: Fade In
+            sequence.Append( tabs[TabType.LoadSave].CanvasGroup.DOFade(1f, animationDuration).SetEase(Ease.OutQuint));
+
+            // Step 2: Scale Up (overlaps with fade for snappier feel)
+            sequence.Join( tabs[TabType.LoadSave].GetComponent<RectTransform>().DOScale(1f, animationDuration).SetEase(Ease.OutQuint));  
+
+            // Step 3 (Optional if you want a slight shift during scale up):
+            // If you want it to appear *from* the main menu's edge and push out,
+            // you would start its anchoredPosition differently and move it.
+            // For "pop up right of", starting at scale 0 at the target position and scaling up is often sufficient.
+            // If you want a slight initial "push" from the main menu, set its initial X slightly to the left of targetX
+            // and add a DOMoveX to the sequence. Example:
+            // popUpMenuRectTransform.anchoredPosition = new Vector2(mainMenuRectTransform.anchoredPosition.x + mainMenuRectTransform.rect.width / 2, targetY); // Start at main menu's right edge
+            // sequence.Join(popUpMenuRectTransform.DOAnchorPosX(targetX, animationDuration).SetEase(Ease.OutSine)); // Then move to final X
+        }
+
+        
     }
 }

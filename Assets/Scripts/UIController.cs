@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using Screens;
 using UnityEngine;
 
-
 public enum ScreenType { Title, MainMenu, SaveLoad, Settings, Credits }
+public enum TabType { LoadsScroll, LoadSave, NotImplemented }
 
 public class UIController : MonoBehaviour
 {
@@ -39,6 +39,7 @@ public class UIController : MonoBehaviour
             if (isActive)
             {
                 kv.Value.Show();
+                Debug.Log($"[UIManager] ShowScreen {kv.Key}");
             }
             else
             {
@@ -52,7 +53,7 @@ public class UIController : MonoBehaviour
         if (System.Enum.IsDefined(typeof(ScreenType), enumNum))
         {
             ScreenType type = (ScreenType)enumNum;
-            ShowScreen(type); 
+            ShowScreen(type);
         }
         else
         {
