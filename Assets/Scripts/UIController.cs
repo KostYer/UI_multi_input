@@ -4,7 +4,7 @@ using Screens;
 using UnityEngine;
 
 public enum ScreenType { Title, MainMenu, SaveLoad, Settings, Credits }
-public enum TabType { LoadsScroll, LoadSave, NotImplemented }
+public enum TabType { None, LoadsScroll, LoadSave, NotImplemented, GameSettings, GameControls, VideoSettings, SoundSettings }
 
 public class UIController : MonoBehaviour
 {
@@ -30,7 +30,7 @@ public class UIController : MonoBehaviour
             {ScreenType.Credits, CreditsScreen}
         };
         
-        ShowScreen(ScreenType.SaveLoad);
+        ShowScreen(ScreenType.MainMenu);
     }
 
     private void ShowScreen(ScreenType type) {

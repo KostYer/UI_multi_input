@@ -66,15 +66,28 @@ namespace Screens
             }
             tabs[tabType].Show();
         }
-        
+
+        public void ShowTab(int tabIndex)
+        {
+            TabType tabType = GetTabByIndex(tabIndex);
+            ShowTab(tabType);
+        }
         public void ShowMainTab()
         {
             Show(MainTabType);
         }
+        
 
         public void ShowNotImplementedTab()
         {
             Show(TabType.NotImplemented);
+        }
+        
+        public TabType GetTabByIndex(int index)
+        {
+            if (index >= 0 && index < _loadTabs.Count)
+                return _loadTabs[index].TabType;
+            return TabType.None;
         }
 
     }

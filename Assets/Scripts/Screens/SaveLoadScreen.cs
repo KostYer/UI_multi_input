@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using SaveLoading;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Utils;
 
@@ -9,8 +10,7 @@ namespace Screens
 {
     public class SaveLoadScreen: MenuScreen
     {
-        
-        [SerializeField] private SelectionController _selectionController;
+        [SerializeField] private SelectionResolver selectionResolver;
         [SerializeField] private List<SaveSlot> _saveSloats = new();
         
         [Header("Scroll View References")]
@@ -22,13 +22,16 @@ namespace Screens
         public float scrollDuration = 0.2f; 
         public Ease scrollEase = Ease.OutQuad;  
         public float padding = 60f; 
+        
+       
+
 
         private GameObject lastSelectedGameObject;
 
         protected override void Awake()
         {
             base.Awake();
-            _selectionController.OnSelectionChanged += OnSelectionChanged;
+            selectionResolver.OnSelectionChanged += OnSelectionChanged;
 
             if (_saveSloats.Count == 0)
             {
