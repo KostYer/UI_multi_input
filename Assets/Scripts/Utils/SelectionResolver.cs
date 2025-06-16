@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 namespace Utils
 {
-    //hovers over active ui elements. enables correct hoverings with keys or with mouse
-    public class SelectionController: MonoBehaviour
+    //hovers over active ui elements. enables correct hoverings with keys or with mouse. prioritize keys
+    public class SelectionResolver: MonoBehaviour
     {
         public event Action<bool,GameObject> OnSelectionChanged;
         
@@ -32,12 +32,31 @@ namespace Utils
         
         private void OnNavigate(InputAction.CallbackContext ctx)
         {
-            _inputWasFromController = true;
+            Vector2 navigateVector = ctx.ReadValue<Vector2>();
+
+            if (Mathf.Abs(navigateVector.y) > Mathf.Abs(navigateVector.x))
+            {
+                _inputWasFromController = true;
+                Debug.Log("Vertical Navigation: " + navigateVector.y);
+            }
+            else if (Mathf.Abs(navigateVector.x) > 0) // Check if there's any horizontal input at all
+            {
+                // This was primarily horizontal navigation (left/right)
+                Debug.Log("Horizontal Navigation: " + navigateVector.x);
+            }
+          
         }
         
         private void OnMouseClick(InputAction.CallbackContext context)
         {
-           _inputWasFromController = false;
+           // if(!_inputWasFromController) return;
+            
+            _inputWasFromController = false;
+            if (IsMouseOverSelectableUI(out GameObject hovered))
+            {
+                EventSystem.current.SetSelectedGameObject(hovered);
+                ActualizeCurrentSelection();
+            }
         }
 
         
@@ -124,7 +143,7 @@ namespace Utils
             bool isSelected = false;
             if (EventSystem.current == null)
             {
-                Debug.LogWarning("[SelectionController ActualizeCurrentSelection]  No EventSystem found in the scene.");
+                Debug.LogWarning("[SelectionResolver ActualizeCurrentSelection]  No EventSystem found in the scene.");
                 OnSelectionChanged?.Invoke(false, null);
                 return;
             }
@@ -133,6 +152,11 @@ namespace Utils
             if (selectedTemp == _selectedObject) return;
             if (selectedTemp == null && _selectedObject == null) return;
             _selectedObject = selectedTemp;
+
+            if (_selectedObject != null)
+            {
+                Debug.Log($"[SelectionResolver] selected {_selectedObject.name}");
+            }
 
             OnSelectionChanged?.Invoke(_selectedObject != null, _selectedObject);
         }
