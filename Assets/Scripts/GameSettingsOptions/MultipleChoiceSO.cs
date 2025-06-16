@@ -11,7 +11,7 @@ namespace GameSettingsOptions
         [SerializeField] private string[] _options;
         [SerializeField] private int _defaultIndex;
       
-        public string[] Options => _options;
+        public virtual string[] Options => _options;
         public int DefaultIndex => _defaultIndex;
     }
 }

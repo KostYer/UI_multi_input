@@ -30,7 +30,7 @@ public class UIController : MonoBehaviour
             {ScreenType.Credits, CreditsScreen}
         };
         
-        ShowScreen(ScreenType.MainMenu);
+        ShowScreen(ScreenType.Settings);
     }
 
     private void ShowScreen(ScreenType type) {

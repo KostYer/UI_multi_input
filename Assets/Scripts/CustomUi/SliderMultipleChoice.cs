@@ -43,6 +43,16 @@ namespace CustomUi
             DecreaseValue();
         }
 
+        public override void OnScrollWheelUp()
+        {
+            IncreaseValue();
+        }
+
+        public override void OnScrollWheelDown()
+        {
+            DecreaseValue();
+        }
+
         private void IncreaseValue()
         {
             if( _slider.value >= _slider.maxValue) return;

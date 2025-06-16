@@ -11,7 +11,7 @@ using UnityEngine.InputSystem;
 namespace Utils
 {   
     [RequireComponent(typeof(Image))] 
-    public class RowSelector : MonoBehaviour , ISelectHandler, IDeselectHandler, IMoveHandler
+    public class RowController : MonoBehaviour , ISelectHandler, IDeselectHandler, IMoveHandler
     {
     [SerializeField] private RowOptionsHandler _rowOptionsHandler;
         // --- Inspector Assigned References ---
@@ -37,22 +37,41 @@ namespace Utils
     [SerializeField] private InputActionAsset _inputActions;
     private InputAction _navigateAction;
     private InputAction _clickAction;
+    private InputAction _scrollWheelAction;
     
     private void Awake()
     {
         _navigateAction = _inputActions.FindAction("UI/Navigate");  
         _clickAction = _inputActions.FindAction("UI/Click", true);
+        _scrollWheelAction = _inputActions.FindAction("UI/ScrollWheel", true);
         _rowOptionsHandler.Initialize();
      //   _navigateAction.performed += OnNavigate;
         _clickAction.performed += OnMouseClick;
+        _scrollWheelAction.performed += OnScrollWheel;
         _navigateAction.Enable();
+    }
+
+    private void OnScrollWheel(InputAction.CallbackContext context)
+    {
+        if (!_isSelected) return;
+        
+        float scrollY = context.ReadValue<Vector2>().y;
+
+        if (scrollY > 0)
+        {
+            _rowOptionsHandler.OnScrollWheelUp();
+        }
+        else if (scrollY < 0)
+        {
+            _rowOptionsHandler.OnScrollWheelDown();
+        }
     }
 
     public void OnSelect(BaseEventData eventData)
     {
         if (_isSelected) return;
         
-        Debug.Log($"[RowSelector] OnSelect");
+        Debug.Log($"[RowController] OnSelect");
         HighlightRow(true);
         _settingNameText.color = Color.yellow;
         _isSelected = true;
@@ -61,7 +80,7 @@ namespace Utils
     public void OnDeselect(BaseEventData eventData)
     {
         if (!_isSelected) return;
-        Debug.Log($"[RowSelector] OnDeselect");
+        Debug.Log($"[RowController] OnDeselect");
         HighlightRow(false);
         _settingNameText.color = Color.white;
         _isSelected = false;
@@ -69,7 +88,7 @@ namespace Utils
 
     public void OnSubmit(BaseEventData eventData)
     {
-        Debug.Log($"[RowSelector] OnSubmit");
+        Debug.Log($"[RowController] OnSubmit");
         _rowOptionsHandler.OnSubmit();
     }
  
