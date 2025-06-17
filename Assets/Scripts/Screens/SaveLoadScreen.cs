@@ -10,7 +10,8 @@ namespace Screens
 {
     public class SaveLoadScreen: MenuScreen
     {
-        [SerializeField] private SelectionResolver selectionResolver;
+        [SerializeField] private SelectionResolver _selectionResolver;
+         
         [SerializeField] private List<SaveSlot> _saveSloats = new();
         
         [Header("Scroll View References")]
@@ -31,7 +32,7 @@ namespace Screens
         protected override void Awake()
         {
             base.Awake();
-            selectionResolver.OnSelectionChanged += OnSelectionChanged;
+            _selectionResolver.OnSelectionChanged += OnSelectionChanged;
 
             if (_saveSloats.Count == 0)
             {
