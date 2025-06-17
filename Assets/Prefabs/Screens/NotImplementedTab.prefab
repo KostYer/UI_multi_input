@@ -105,6 +105,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canvasGroup: {fileID: 4938765679134239260}
   _tabType: 3
+  _inputActions: {fileID: -944628639613478452, guid: d1f0f78e963485f4fae1f695d7b5e0a1,
+    type: 3}
+  _defaultSelection: {fileID: 394428087055259622}
+  _isActive: 0
 --- !u!1 &8304619274061878347
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,6 +376,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 817319833dd713d45af5c2121e9649c7, type: 3}
+--- !u!1 &394428087055259622 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5429341922959870843, guid: 817319833dd713d45af5c2121e9649c7,
+    type: 3}
+  m_PrefabInstance: {fileID: 5629974488481619101}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &459475712009199998 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5206668379868315107, guid: 817319833dd713d45af5c2121e9649c7,
