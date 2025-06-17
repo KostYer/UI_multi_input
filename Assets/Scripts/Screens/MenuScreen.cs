@@ -81,7 +81,6 @@ namespace Screens
         {
             Show(MainTabType);
         }
-        
 
         public void ShowNotImplementedTab()
         {
@@ -94,6 +93,5 @@ namespace Screens
                 return _loadTabs[index].TabType;
             return TabType.None;
         }
-
     }
 }
