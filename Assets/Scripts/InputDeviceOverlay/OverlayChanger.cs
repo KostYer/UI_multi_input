@@ -12,11 +12,12 @@ namespace InputDeviceOverlay
         private void Start()
         {
             ControllerDetector.Instance.OnControllerChanged += OnOverlayChanged;
-            ControllerDetector.Instance.ForceUpdateStatus();
+           // ControllerDetector.Instance.ForceUpdateStatus();
         }
 
         private void OnOverlayChanged(ControllerType controllerType)
         {
+            Debug.Log($"[OverlayChanger] OnOverlayChanged {controllerType}");
             switch (controllerType)
             {
                 case ControllerType.MouseKeys:

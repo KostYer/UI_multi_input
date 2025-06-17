@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 
 namespace InputDeviceOverlay
 {
@@ -29,7 +30,7 @@ namespace InputDeviceOverlay
 
      private void Start()
      {
-      OnGamepadStatusChanged();
+     // OnGamepadStatusChanged();
      }
 
      private void OnEnable()
@@ -42,11 +43,24 @@ namespace InputDeviceOverlay
       _anyKeyAction.performed += OnAnyKeyPressed;
       _anyKeyAction.Enable();
       
-      _anyGamepadButtonAction = new InputAction( type: InputActionType.PassThrough, binding: "<Gamepad>/*");
+      _anyGamepadButtonAction = new InputAction(
+       type: InputActionType.PassThrough
+      );
+
+      _anyGamepadButtonAction.AddBinding("<Gamepad>/buttonSouth");
+      _anyGamepadButtonAction.AddBinding("<Gamepad>/buttonNorth");
+      _anyGamepadButtonAction.AddBinding("<Gamepad>/buttonEast");
+      _anyGamepadButtonAction.AddBinding("<Gamepad>/buttonWest");
+      _anyGamepadButtonAction.AddBinding("<Gamepad>/dpad/up");
+      _anyGamepadButtonAction.AddBinding("<Gamepad>/dpad/down");
+      _anyGamepadButtonAction.AddBinding("<Gamepad>/dpad/left");
+      _anyGamepadButtonAction.AddBinding("<Gamepad>/dpad/right");
+      _anyGamepadButtonAction.AddBinding("<Gamepad>/leftShoulder");
+      _anyGamepadButtonAction.AddBinding("<Gamepad>/rightShoulder");
+      
       _anyGamepadButtonAction.performed += OnAnyGamepadButtonPressed;
       _anyGamepadButtonAction.Enable();
      }
-
 
      private void OnDisable()
      {
@@ -54,9 +68,8 @@ namespace InputDeviceOverlay
       _anyKeyAction.performed -= OnAnyKeyPressed;
       _anyGamepadButtonAction.performed -= OnAnyGamepadButtonPressed;
      }
- 
 
-     private void OnGamepadStatusChanged()
+      private void OnGamepadStatusChanged()
      {
       var gamepad = Gamepad.current;
       if (gamepad == null)
@@ -78,7 +91,7 @@ namespace InputDeviceOverlay
        Debug.Log("[ControllerDetector] It's an Xbox controller.");
        OnControlsChanged(ControllerType.XBox);
       }
-     }
+     } 
 
      private void OnControlsChanged(ControllerType active)
      {
@@ -91,7 +104,6 @@ namespace InputDeviceOverlay
       OnControlsChanged(ControllerType.MouseKeys);
      }
      
-     
      private void OnAnyKeyPressed(InputAction.CallbackContext obj)
      {
       Debug.Log("[ControllerDetector] OnAnyKeyPressed");
@@ -99,16 +111,20 @@ namespace InputDeviceOverlay
      }
      
      
-     private void OnAnyGamepadButtonPressed(InputAction.CallbackContext obj)
+     private void OnAnyGamepadButtonPressed(InputAction.CallbackContext ctx)
      {
-      Debug.Log("[ControllerDetector] OnAnyGamepadButtonPressed");
-      OnGamepadStatusChanged();
+      var control = ctx.control;
+
+      if (control is ButtonControl button && button.wasPressedThisFrame)
+      {
+       OnGamepadStatusChanged();
+      }
+     
      }
 
      public void ForceUpdateStatus()
      {
       OnGamepadStatusChanged();
-      ;
      }
  }
 
