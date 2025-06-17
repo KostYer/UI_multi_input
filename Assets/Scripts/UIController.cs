@@ -4,7 +4,7 @@ using Screens;
 using UnityEngine;
 
 public enum ScreenType { Title, MainMenu, SaveLoad, Settings, Credits }
-public enum TabType { None, LoadsScroll, LoadSave, NotImplemented, GameSettings, GameControls, VideoSettings, SoundSettings }
+public enum TabType { None, LoadsScroll, LoadSave, NotImplemented, GameSettings, GameControls, VideoSettings, SoundSettings, mainMenuIntro }
 
 public class UIController : MonoBehaviour
 {
@@ -30,7 +30,7 @@ public class UIController : MonoBehaviour
             {ScreenType.Credits, CreditsScreen}
         };
         
-        ShowScreen(ScreenType.Settings);
+        ShowScreen(ScreenType.MainMenu);
     }
 
     private void ShowScreen(ScreenType type) {
@@ -60,4 +60,5 @@ public class UIController : MonoBehaviour
             Debug.LogError($"[UIManager]: Invalid ScreenType enum number provided: {enumNum}");
         }
     }
+ 
 }

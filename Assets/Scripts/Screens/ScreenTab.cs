@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Screens
@@ -5,6 +6,7 @@ namespace Screens
     [RequireComponent(typeof(CanvasGroup))]
     public abstract class ScreenTab: MonoBehaviour
     {
+        public event Action<TabType> OnTabOnen;
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private TabType _tabType;
         
@@ -21,6 +23,7 @@ namespace Screens
             _canvasGroup.alpha = 1f;
             _canvasGroup.interactable = true;
             _canvasGroup.blocksRaycasts = true;
+            OnTabOnen?.Invoke(_tabType);
         }
 
         public virtual void Hide()

@@ -16,10 +16,9 @@ namespace Screens
 
         protected virtual void Awake()
         {
-            if (_mainTab != null) _mainTab.Show();
-            
-            if(_loadTabs.Count == 0) return;
             if(_loadTabs == null) return;
+            if(_loadTabs.Count == 0) return;
+        
 
             for (int i = 0; i < _loadTabs.Count; i++)
             {
@@ -27,7 +26,13 @@ namespace Screens
                 if(tabs.ContainsKey(key)) continue;
                 
                 tabs.Add(key, _loadTabs[i]);
+                _loadTabs[i].OnTabOnen += OnTabOpen;
             }
+        }
+
+        protected virtual void OnTabOpen(TabType tabType)
+        {
+           
         }
 
         private void OnValidate()

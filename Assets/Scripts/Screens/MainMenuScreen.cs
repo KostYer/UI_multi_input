@@ -1,9 +1,7 @@
-using System;
-using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
+using Utils;
 
 namespace Screens
 {
@@ -11,10 +9,34 @@ namespace Screens
     {
         [SerializeField] private GameObject _firstSelected;
         [SerializeField] private RectTransform _playGameMenu;
+        [SerializeField] private RectTransform _mainPanel;
 
-        private void Awake()
+        [SerializeField] private SelectionResolver selectionResolver;
+        
+        
+        [Header("anim settings")]
+        [SerializeField] private float animationDuration = .15f;
+
+        protected override void Awake()
         {
-            _playGameMenu.localScale = Vector3.zero;  
+            base.Awake();
+            _playGameMenu.localScale = Vector3.zero;
+            selectionResolver.OnSelectionChanged += OnSelectionChanged;
+        }
+
+        private void OnSelectionChanged(bool isSelection, GameObject selected)
+        {
+            if (isSelection) return;
+            Debug.Log($"[MainMenuScreen sssss] OnSelectionChanged {isSelection}");
+            
+            AnimatePopUp_ScaleAndMove(false);
+        }
+
+        protected override void OnTabOpen(TabType tabType)
+        {
+            base.OnTabOpen(tabType);
+            AnimatePopUp_ScaleAndMove(false);
+            
         }
 
         void OnEnable()
@@ -24,20 +46,28 @@ namespace Screens
             EventSystem.current.SetSelectedGameObject(_firstSelected);
         }
         
-        public void AnimatePopUp_ScaleAndMove()
+        public void AnimatePopUp_ScaleAndMove(bool show)
         {
-            float animationDuration = .15f;
-            // Set initial state
-            _playGameMenu.localScale = Vector3.zero; // Start from scale 0
+            var endScale = show ? 1f : 0f;
+            var endAlpha = show ? 1f : 0f;
             
+            if (show)
+            {
+                _playGameMenu.localScale = Vector3.zero; // Start from scale 0
+            }
+
+           
+
+
+
 
             Sequence sequence = DOTween.Sequence();
 
             // Step 1: Fade In
-            sequence.Append(_playGameMenu.GetComponent<CanvasGroup>().DOFade(1f, animationDuration).SetEase(Ease.OutQuint));
+            sequence.Append(_playGameMenu.GetComponent<CanvasGroup>().DOFade(endAlpha, animationDuration).SetEase(Ease.OutQuint));
 
             // Step 2: Scale Up (overlaps with fade for snappier feel)
-            sequence.Join(_playGameMenu.DOScale(1f, animationDuration).SetEase(Ease.OutQuint));  
+            sequence.Join(_playGameMenu.DOScale(endScale, animationDuration).SetEase(Ease.OutQuint));  
 
             // Step 3 (Optional if you want a slight shift during scale up):
             // If you want it to appear *from* the main menu's edge and push out,
@@ -45,8 +75,8 @@ namespace Screens
             // For "pop up right of", starting at scale 0 at the target position and scaling up is often sufficient.
             // If you want a slight initial "push" from the main menu, set its initial X slightly to the left of targetX
             // and add a DOMoveX to the sequence. Example:
-            // popUpMenuRectTransform.anchoredPosition = new Vector2(mainMenuRectTransform.anchoredPosition.x + mainMenuRectTransform.rect.width / 2, targetY); // Start at main menu's right edge
-            // sequence.Join(popUpMenuRectTransform.DOAnchorPosX(targetX, animationDuration).SetEase(Ease.OutSine)); // Then move to final X
+          //  _playGameMenu.anchoredPosition = new Vector2(_mainPanel.anchoredPosition.x + _mainPanel.rect.width / 2, -481); // Start at main menu's right edge
+          //    sequence.Join(_playGameMenu.DOAnchorPosX(-400, animationDuration).SetEase(Ease.OutSine)); // Then move to final X
         }
 
       
