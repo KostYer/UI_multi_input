@@ -54,6 +54,11 @@ namespace Screens
 
         public virtual void Hide()
         {
+            foreach (var tab in tabs.Values)
+            {
+                tab.Hide();
+            }
+
             _canvasGroupWrapper.Hide();
         }
 
