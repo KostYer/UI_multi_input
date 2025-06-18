@@ -12,6 +12,7 @@ namespace Tabs.IntroScreen
        [SerializeField] private IntroOverlayAnimator _overlayAnimator;
        [SerializeField] private float _fadeDuration = 0.5f;
        [SerializeField] private CanvasGroup _mainCanvasGroup;
+     
        private InputAction _submitAction;
        
        protected override void Awake()

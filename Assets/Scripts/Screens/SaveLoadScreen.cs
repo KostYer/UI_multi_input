@@ -10,7 +10,6 @@ namespace Screens
     public class SaveLoadScreen: MenuScreen
     {
         [SerializeField] private SelectionResolver _selectionResolver;
-         
         [SerializeField] private List<SaveSlot> _saveSloats = new();
         
         [Header("Scroll View References")]
@@ -22,9 +21,6 @@ namespace Screens
         public float scrollDuration = 0.2f; 
         public Ease scrollEase = Ease.OutQuad;  
         public float padding = 60f; 
-        
-       
-
 
         private GameObject lastSelectedGameObject;
 
@@ -47,15 +43,9 @@ namespace Screens
 
         private void OnSelectionChanged(bool isSelected, GameObject selection)
         {
-            if (isSelected)
-            {
-        //        Debug.Log($"[SaveLoadScreen] Selected: {isSelected}, Selection: {selection.name}");
+            if (!isSelected) return;
                 lastSelectedGameObject = selection;
                 ScrollToSelected(lastSelectedGameObject.GetComponent<RectTransform>());
-                return;
-            }
-      //      Debug.Log($"[SaveLoadScreen] Selected: {isSelected}");
-          
         }
         
         private void ScrollToSelected(RectTransform selectedItemRect)
@@ -129,9 +119,6 @@ namespace Screens
             base.OnCancelClick();
            if(!IsActive) return;
            UIController.Instance.ShowScreen(ScreenType.MainMenu);
-
         }
-
-        
     }
 }

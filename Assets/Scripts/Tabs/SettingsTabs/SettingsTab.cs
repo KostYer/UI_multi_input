@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using InputDeviceOverlay;
 using Screens;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -37,8 +36,6 @@ namespace Tabs.SettingsTabs
 
         public void JumpToDefaultRow()
         {
-          //  if(!ControllerDetector.Instance.IsGamepadActive) return;
-            
             EventSystem.current.SetSelectedGameObject(_rows[0].gameObject);
         }
  

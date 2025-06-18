@@ -1,7 +1,5 @@
 using Tabs.SettingsTabs;
-using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 
 namespace Screens
 {

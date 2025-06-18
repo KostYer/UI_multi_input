@@ -15,11 +15,11 @@ namespace Screens
         [SerializeField] protected InputActionAsset _inputActions;
         [SerializeField] protected GameObject _defaultSelection;
         [SerializeField]  private bool _isActive;
+        
         private InputAction _navigateAction;
         
         public GameObject DefaultSelection => _defaultSelection;
         public bool IsActive => _isActive;
-        
         public TabType TabType => _tabType;
         public CanvasGroup CanvasGroup => _canvasGroup;
 

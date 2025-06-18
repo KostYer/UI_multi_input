@@ -1,9 +1,7 @@
-using System;
 using UnityEngine;
 
 namespace Utils
 {
-
     [RequireComponent(typeof(CanvasGroup))]
     public class CanvasGroupWrapper : MonoBehaviour
     {

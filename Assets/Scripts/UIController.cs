@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using Screens;
 using UnityEngine;
@@ -79,5 +78,4 @@ public class UIController : MonoBehaviour
     }
     
     public void QuitGame() { Application.Quit();}
- 
 }

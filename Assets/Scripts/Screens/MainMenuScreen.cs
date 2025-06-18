@@ -1,5 +1,4 @@
 using DG.Tweening;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Utils;
@@ -13,9 +12,7 @@ namespace Screens
         [SerializeField] private GameObject _secondSelected;
         [SerializeField] private RectTransform _playGameMenu;
         [SerializeField] private RectTransform _mainPanel;
-
         [SerializeField] private SelectionResolver _selectionResolver;
-        
         
         [Header("anim settings")]
         [SerializeField] private float animationDuration = .15f;
@@ -92,7 +89,6 @@ namespace Screens
             }
 
             Show(TabType.QuitGame);
-
         }
     }
 }
