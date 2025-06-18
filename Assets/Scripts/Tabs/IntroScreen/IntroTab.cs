@@ -11,6 +11,7 @@ namespace Tabs.IntroScreen
     {
        [SerializeField] private IntroOverlayAnimator _overlayAnimator;
        [SerializeField] private float _fadeDuration = 0.5f;
+       [SerializeField] private CanvasGroup _mainCanvasGroup;
        private InputAction _submitAction;
        
        protected override void Awake()
@@ -58,11 +59,11 @@ namespace Tabs.IntroScreen
            while (elapsed < _fadeDuration)
            {
                elapsed += Time.unscaledDeltaTime;
-               _canvasGroup.alpha = Mathf.Lerp(1f, 0f, elapsed / _fadeDuration);
+               _mainCanvasGroup.alpha = Mathf.Lerp(1f, 0f, elapsed / _fadeDuration);
                yield return null;
            }
 
-           _canvasGroup.alpha = 0f;
+           _mainCanvasGroup.alpha = 0f;
            onFinished.Invoke();
        }
     }
