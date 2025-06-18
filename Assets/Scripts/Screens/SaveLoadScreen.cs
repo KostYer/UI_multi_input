@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using DG.Tweening;
 using SaveLoading;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Utils;
 
@@ -119,16 +117,11 @@ namespace Screens
         public void AnimatePopUp_ScaleAndMove()
         {
             float animationDuration = .15f;
-            tabs[TabType.LoadSave].GetComponent<RectTransform>().localScale = Vector3.zero; // Start from scale 0
+            tabs[TabType.LoadSave].GetComponent<RectTransform>().localScale = Vector3.zero;  
             
-
             Sequence sequence = DOTween.Sequence();
-
             sequence.Append( tabs[TabType.LoadSave].CanvasGroup.DOFade(1f, animationDuration).SetEase(Ease.OutQuint));
-
             sequence.Join( tabs[TabType.LoadSave].GetComponent<RectTransform>().DOScale(1f, animationDuration).SetEase(Ease.OutQuint));  
-
-         
         }
         
         public override void OnCancelClick()

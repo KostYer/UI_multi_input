@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public enum ScreenType { Title, MainMenu, SaveLoad, Settings, Credits }
-public enum TabType { None, LoadsScroll, LoadSave, NotImplemented, GameSettings, GameControls, VideoSettings, SoundSettings, mainMenuIntro }
+public enum TabType { None, LoadsScroll, LoadSave, NotImplemented, GameSettings, GameControls, VideoSettings, SoundSettings, mainMenuIntro, QuitGame }
 
 public class UIController : MonoBehaviour
 {
@@ -78,5 +78,7 @@ public class UIController : MonoBehaviour
             Debug.LogError($"[UIManager]: Invalid ScreenType enum number provided: {enumNum}");
         }
     }
+    
+    public void QuitGame() { Application.Quit();}
  
 }

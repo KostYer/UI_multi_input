@@ -81,5 +81,19 @@ namespace Screens
             if(!_isAdditionalPanelShowed) return;
             EventSystem.current.SetSelectedGameObject(_secondSelected); 
         }
+        
+        public override void OnCancelClick()
+        {
+            base.OnCancelClick();
+            if(!IsActive) return;
+            if (_isAdditionalPanelShowed)
+            {
+                OnAdditionalPanel();
+                return;
+            }
+
+            Show(TabType.QuitGame);
+
+        }
     }
 }
