@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a4fde6e0b21dc224d813ee493157874f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e9480d7e2fd987043a3c6e15f4747ce0, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -633,7 +633,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a8292d7c3170a7348accf3d85c0e7359, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c241849968a218a4eadf8d077765c9ec, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -676,17 +676,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rowOptionsHandler: {fileID: 6038434739006880121}
-  _targetGraphic: {fileID: 1346487938023974186}
-  _settingNameText: {fileID: 792013370765233475}
-  _actionButton: {fileID: 0}
-  _actionSlider: {fileID: 5378460211873493618}
-  _fadeDuration: 0.1
-  _glowImage: {fileID: 1596828849647035175}
-  minAlpha: 0
-  maxAlpha: 1
-  pulseDuration: 0.3
+  _highlightAnimator: {fileID: 0}
   _inputActions: {fileID: -944628639613478452, guid: d1f0f78e963485f4fae1f695d7b5e0a1,
     type: 3}
+  _targetGraphic: {fileID: 1346487938023974186}
+  _settingNameText: {fileID: 792013370765233475}
 --- !u!114 &6231715941205676050
 MonoBehaviour:
   m_ObjectHideFlags: 0
