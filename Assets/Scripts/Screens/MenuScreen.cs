@@ -9,6 +9,9 @@ namespace Screens
         [SerializeField] private CanvasGroupWrapper _canvasGroupWrapper;
         [SerializeField] private List<ScreenTab> _loadTabs = new();
         [SerializeField] private ScreenTab _mainTab;
+      
+        
+        protected ScreenTab _activeTab;
         
         public TabType MainTabType => _mainTab==null? TabType.NotImplemented : _mainTab.TabType;
         
@@ -32,7 +35,7 @@ namespace Screens
 
         protected virtual void OnTabOpen(TabType tabType)
         {
-           
+            _activeTab = tabs[tabType];
         }
 
         private void OnValidate()

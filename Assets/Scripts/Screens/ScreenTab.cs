@@ -1,9 +1,7 @@
 using System;
-using InputDeviceOverlay;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using Utils;
 
 namespace Screens
 {
@@ -18,6 +16,8 @@ namespace Screens
         [SerializeField] protected GameObject _defaultSelection;
         [SerializeField]  private bool _isActive;
         private InputAction _navigateAction;
+        
+        public GameObject DefaultSelection => _defaultSelection;
         public bool IsActive => _isActive;
         
         public TabType TabType => _tabType;
@@ -31,6 +31,11 @@ namespace Screens
         }
 
         private void OnNavigation(InputAction.CallbackContext obj)
+        {
+            SelectDefaultSelection();
+        }
+
+        private void SelectDefaultSelection()
         {
             if(!_isActive) return;
             if (_defaultSelection == null)
@@ -50,6 +55,7 @@ namespace Screens
 
         public virtual void Show()
         {
+            SelectDefaultSelection();
             _canvasGroup.alpha = 1f;
             _canvasGroup.interactable = true;
             _canvasGroup.blocksRaycasts = true;

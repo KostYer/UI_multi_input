@@ -3,6 +3,7 @@ using InputDeviceOverlay;
 using Screens;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using Utils;
 
 namespace Tabs.SettingsTabs
@@ -10,8 +11,22 @@ namespace Tabs.SettingsTabs
     public class SettingsTab: ScreenTab
     {
         [SerializeField] private List<RowController> _rows;
+        [SerializeField] private Button _settingsButton;
         
+        private RowController _defaultRow;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            SetDefaultRow();
+        }
+
         private void OnValidate()
+        {
+            SetDefaultRow();
+        }
+
+        private void SetDefaultRow()
         {
             _rows = new List<RowController>(GetComponentsInChildren<RowController>(includeInactive: false));
             if (_rows.Count == 0)
@@ -20,12 +35,12 @@ namespace Tabs.SettingsTabs
             }
         }
 
-        public override void Show()
+        public void JumpToDefaultRow()
         {
-            base.Show();
-            if(!ControllerDetector.Instance.IsGamepadActive) return;
+          //  if(!ControllerDetector.Instance.IsGamepadActive) return;
             
             EventSystem.current.SetSelectedGameObject(_rows[0].gameObject);
         }
+ 
     }
 }
