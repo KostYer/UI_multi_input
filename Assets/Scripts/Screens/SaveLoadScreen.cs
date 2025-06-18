@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using DG.Tweening;
 using SaveLoading;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Utils;
 

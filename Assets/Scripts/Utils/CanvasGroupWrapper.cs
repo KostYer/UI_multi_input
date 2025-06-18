@@ -9,6 +9,8 @@ namespace Utils
     {
         
         [SerializeField] private CanvasGroup _canvasGroup;
+        public CanvasGroup CanvasGroup => _canvasGroup;
+        
         private void OnValidate()
         {
             _canvasGroup = GetComponent<CanvasGroup>();

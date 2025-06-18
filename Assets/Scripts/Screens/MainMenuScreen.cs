@@ -1,7 +1,9 @@
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Utils;
+using Sequence = DG.Tweening.Sequence;
 
 namespace Screens
 {
@@ -11,7 +13,7 @@ namespace Screens
         [SerializeField] private RectTransform _playGameMenu;
         [SerializeField] private RectTransform _mainPanel;
 
-        [SerializeField] private SelectionResolver selectionResolver;
+        [SerializeField] private SelectionResolver _selectionResolver;
         
         
         [Header("anim settings")]
@@ -21,8 +23,9 @@ namespace Screens
         {
             base.Awake();
             _playGameMenu.localScale = Vector3.zero;
-            selectionResolver.OnSelectionChanged += OnSelectionChanged;
+           
         }
+ 
 
         private void OnSelectionChanged(bool isSelection, GameObject selected)
         {
@@ -42,6 +45,7 @@ namespace Screens
         void OnEnable()
         {
             Debug.Log("[MainMenuScreen] OnEnable");
+            _selectionResolver.OnSelectionChanged += OnSelectionChanged;
             EventSystem.current.SetSelectedGameObject(null);
             EventSystem.current.SetSelectedGameObject(_firstSelected);
         }
