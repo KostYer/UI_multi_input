@@ -27,12 +27,7 @@ namespace InputDeviceOverlay
       { Instance = this; DontDestroyOnLoad(gameObject); }
       else { Destroy(gameObject); return; }
      }
-
-     private void Start()
-     {
-     // OnGamepadStatusChanged();
-     }
-
+ 
      private void OnEnable()
      {
       _clickAction = _inputActions.FindAction("UI/Click", true);
@@ -83,18 +78,17 @@ namespace InputDeviceOverlay
 
       if (layout.Contains("DualShock") || displayName.ToLower().Contains("playstation") || displayName.ToLower().Contains("dual"))
       {
-       Debug.Log("[ControllerDetector] It's a PlayStation controller.");
        OnControlsChanged(ControllerType.PS);
       }
       else if (layout.Contains("XInput") || displayName.ToLower().Contains("xbox"))
       {
-       Debug.Log("[ControllerDetector] It's an Xbox controller.");
        OnControlsChanged(ControllerType.XBox);
       }
      } 
 
      private void OnControlsChanged(ControllerType active)
      {
+      if(_currentControlsType == active) return;
       _currentControlsType = active;
       OnControllerChanged?.Invoke(_currentControlsType);
      }
@@ -106,10 +100,8 @@ namespace InputDeviceOverlay
      
      private void OnAnyKeyPressed(InputAction.CallbackContext obj)
      {
-      Debug.Log("[ControllerDetector] OnAnyKeyPressed");
       OnControlsChanged(ControllerType.MouseKeys);
      }
-     
      
      private void OnAnyGamepadButtonPressed(InputAction.CallbackContext ctx)
      {

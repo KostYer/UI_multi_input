@@ -53,7 +53,6 @@ namespace Screens
 
         void OnEnable()
         {
-            Debug.Log("[MainMenuScreen] OnEnable");
             _selectionResolver.OnSelectionChanged += OnSelectionChanged;
             EventSystem.current.SetSelectedGameObject(null);
             EventSystem.current.SetSelectedGameObject(_firstSelected);

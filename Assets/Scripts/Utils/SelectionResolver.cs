@@ -37,20 +37,15 @@ namespace Utils
             if (Mathf.Abs(navigateVector.y) > Mathf.Abs(navigateVector.x))
             {
                 _inputWasFromController = true;
-                Debug.Log("Vertical Navigation: " + navigateVector.y);
             }
-            else if (Mathf.Abs(navigateVector.x) > 0) // Check if there's any horizontal input at all
+            else if (Mathf.Abs(navigateVector.x) > 0)  
             {
-                // This was primarily horizontal navigation (left/right)
-                Debug.Log("Horizontal Navigation: " + navigateVector.x);
             }
           
         }
         
         private void OnMouseClick(InputAction.CallbackContext context)
         {
-           // if(!_inputWasFromController) return;
-            
             _inputWasFromController = false;
             if (IsMouseOverSelectableUI(out GameObject hovered))
             {
@@ -58,7 +53,6 @@ namespace Utils
                 ActualizeCurrentSelection();
             }
         }
-
         
         void Update()
         {
@@ -152,11 +146,6 @@ namespace Utils
             if (selectedTemp == _selectedObject) return;
             if (selectedTemp == null && _selectedObject == null) return;
             _selectedObject = selectedTemp;
-
-            if (_selectedObject != null)
-            {
-                Debug.Log($"[SelectionResolver] selected {_selectedObject.name}");
-            }
 
             OnSelectionChanged?.Invoke(_selectedObject != null, _selectedObject);
         }

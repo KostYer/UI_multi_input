@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public enum ScreenType { Title, MainMenu, SaveLoad, Settings, Credits }
-public enum TabType { None, LoadsScroll, LoadSave, NotImplemented, GameSettings, GameControls, VideoSettings, SoundSettings, mainMenuIntro, QuitGame, Intro }
+public enum TabType { None, LoadsScroll, LoadSave, NotImplemented, GameSettings, GameControls, VideoSettings, SoundSettings, mainMenuIntro, QuitGame, Intro, CreditsMain }
 
 public class UIController : MonoBehaviour
 {
@@ -56,7 +56,6 @@ public class UIController : MonoBehaviour
                 kv.Value.Show();
                 kv.Value.IsActive = true;
                 _activeScreen = kv.Value;
-                Debug.Log($"[UIManager] ShowScreen {kv.Key}");
             }
             else
             {

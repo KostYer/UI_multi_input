@@ -16,7 +16,6 @@ namespace Tabs.IntroScreen
        
        protected override void Awake()
        {
-           Debug.Log($"[IntroTab] Awake");
            base.Awake();
 
            TryInitAction();
@@ -29,7 +28,6 @@ namespace Tabs.IntroScreen
 
        public override void Show()
        {
-           Debug.Log($"[IntroTab] Show");
            base.Show();
            TryInitAction();
            _overlayAnimator.Animate(true);
@@ -38,7 +36,6 @@ namespace Tabs.IntroScreen
        public override void Hide()
        {
            base.Hide();
-           _submitAction.Disable();
            _overlayAnimator.Animate(false);
            _submitAction.performed -= OnSubmit;
        }
