@@ -7,7 +7,6 @@ namespace CustomUi
     public class BinaryOptionChoice: RowOptionsHandler
     {
         [SerializeField] private BinaryOptionSO _options;
-       // [SerializeField] private Slider _slider;
         [SerializeField] private TMP_Text _optionLabel;
         [SerializeField] private TMP_Text _currentValue;
 

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public enum ScreenType { Title, MainMenu, SaveLoad, Settings, Credits }
-public enum TabType { None, LoadsScroll, LoadSave, NotImplemented, GameSettings, GameControls, VideoSettings, SoundSettings, mainMenuIntro, QuitGame }
+public enum TabType { None, LoadsScroll, LoadSave, NotImplemented, GameSettings, GameControls, VideoSettings, SoundSettings, mainMenuIntro, QuitGame, Intro }
 
 public class UIController : MonoBehaviour
 {
@@ -40,7 +40,7 @@ public class UIController : MonoBehaviour
             {ScreenType.Credits, CreditsScreen}
         };
         
-        ShowScreen(ScreenType.MainMenu);
+        ShowScreen(ScreenType.Title);
     }
 
     private void OnCancelClick(InputAction.CallbackContext obj)

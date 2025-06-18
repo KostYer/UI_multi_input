@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _minAlpha: 0
   _maxAlpha: 1
-  _pulseDuration: 0.8
+  _pulseDuration: 1.3
