@@ -9,10 +9,10 @@ namespace Screens
     public abstract class ScreenTab: MonoBehaviour
     {
         public event Action<TabType> OnTabOnen;
-        [SerializeField] private CanvasGroup _canvasGroup;
+        [SerializeField] protected CanvasGroup _canvasGroup;
         [SerializeField] private TabType _tabType;
        
-        [SerializeField] private InputActionAsset _inputActions;
+        [SerializeField] protected InputActionAsset _inputActions;
         [SerializeField] protected GameObject _defaultSelection;
         [SerializeField]  private bool _isActive;
         private InputAction _navigateAction;

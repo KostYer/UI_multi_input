@@ -1,20 +1,31 @@
-using System;
+using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
-using Utils;
 
 namespace InputDeviceOverlay
 {
     public class OverlayChanger: MonoBehaviour
-    {
-        [SerializeField] private CanvasGroupWrapper _xBoxOverlay;
-        [SerializeField] private CanvasGroupWrapper _psOverlay;
-        
+    { 
         [SerializeField] private float _fadeDuration = 0.2f;
+        [SerializeField] private List<OverlayUnit> _overlayUnitsList = new ();
+        
+         private Dictionary<ControllerType, OverlayUnit> _overlayUnits = new ();
          private ControllerType _controllerTypeCurrent;
-        
-        private Tween _currentTween;
-        
+         private Tween _currentTween;
+         
+         private void OnValidate()
+         {
+             _overlayUnitsList = new List<OverlayUnit>(GetComponentsInChildren<OverlayUnit>());
+         }
+
+         private void Awake()
+         {
+             foreach (var unit in _overlayUnitsList)
+             {
+                 _overlayUnits.Add(unit.ControllerType, unit);
+             }
+         }
+ 
         private void Start()
         {
             ControllerDetector.Instance.OnControllerChanged += OnOverlayChanged;
@@ -23,47 +34,15 @@ namespace InputDeviceOverlay
 
         private void OnOverlayChanged(ControllerType controllerType)
         {
-            Debug.Log($"[OverlayChanger] OnOverlayChanged {controllerType}");
-            switch (controllerType)
-            {
-               
-                case ControllerType.XBox:
-                    SwitchOverlay(_xBoxOverlay.CanvasGroup, _psOverlay.CanvasGroup);
-                    _controllerTypeCurrent = ControllerDetector.Instance.CurrentControlsType;
-                    break;
-                case ControllerType.PS:
-                    SwitchOverlay(_psOverlay.CanvasGroup, _xBoxOverlay.CanvasGroup);
-                    _controllerTypeCurrent = ControllerDetector.Instance.CurrentControlsType;
-                    break;
-                default:
-                    HideCurrentOverlay();
-                  //  _controllerTypeCurrent = ControllerDetector.Instance.CurrentControlsType;
-                    break;
-            }
+           _overlayUnits[_controllerTypeCurrent].CanvasGroup.alpha = 0f; 
+           SwitchOverlay(_overlayUnits[controllerType].CanvasGroup);
+           _controllerTypeCurrent = controllerType;
         }
       
-        private void SwitchOverlay(CanvasGroup toShow, CanvasGroup toHide)
+        private void SwitchOverlay(CanvasGroup target)
         {
             _currentTween?.Kill();
-
-            // Start a joined tween sequence
-            _currentTween = DOTween.Sequence()
-                .Join(toShow.DOFade(1f, _fadeDuration))
-                .Join(toHide.DOFade(0f, _fadeDuration))
-                .OnComplete(Reset);
-        }
-
-        private void HideCurrentOverlay()
-        {
-            _currentTween?.Kill();
-            var toHide = _controllerTypeCurrent == ControllerType.XBox ?_xBoxOverlay : _psOverlay;
-            _currentTween = toHide.CanvasGroup.DOFade(0f, _fadeDuration).OnComplete(Reset);
-        }
-
-        private void Reset()
-        {
-            _controllerTypeCurrent = ControllerDetector.Instance.CurrentControlsType;
-            _currentTween = null;
+            _currentTween = target.DOFade(1f, _fadeDuration);
         }
     }
 }
