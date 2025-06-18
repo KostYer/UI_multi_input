@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Utils;
 
 namespace Screens
@@ -9,8 +10,10 @@ namespace Screens
         [SerializeField] private CanvasGroupWrapper _canvasGroupWrapper;
         [SerializeField] private List<ScreenTab> _loadTabs = new();
         [SerializeField] private ScreenTab _mainTab;
-      
-        
+
+        public bool IsActive { get; set; }
+
+
         protected ScreenTab _activeTab;
         
         public TabType MainTabType => _mainTab==null? TabType.NotImplemented : _mainTab.TabType;
@@ -19,6 +22,8 @@ namespace Screens
 
         protected virtual void Awake()
         {
+          
+            
             if(_loadTabs == null) return;
             if(_loadTabs.Count == 0) return;
         
@@ -31,6 +36,11 @@ namespace Screens
                 tabs.Add(key, _loadTabs[i]);
                 _loadTabs[i].OnTabOnen += OnTabOpen;
             }
+        }
+
+        public virtual void OnCancelClick()
+        {
+            if (!IsActive) return;
         }
 
         protected virtual void OnTabOpen(TabType tabType)

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Screens;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public enum ScreenType { Title, MainMenu, SaveLoad, Settings, Credits }
 public enum TabType { None, LoadsScroll, LoadSave, NotImplemented, GameSettings, GameControls, VideoSettings, SoundSettings, mainMenuIntro }
@@ -16,11 +17,20 @@ public class UIController : MonoBehaviour
     [SerializeField] private MenuScreen settingsScreen;
     [SerializeField] private MenuScreen CreditsScreen;
     
+    
+    [SerializeField] protected InputActionAsset _inputActions;
+    protected InputAction _goBackAction;
+    
     private Dictionary<ScreenType, MenuScreen> screens = default;
 
+    private MenuScreen _activeScreen;
     void Awake() {
         if (Instance == null) { Instance = this; DontDestroyOnLoad(gameObject); }
         else { Destroy(gameObject); return; }
+        
+        _goBackAction = _inputActions.FindAction("UI/Cancel");
+        _goBackAction.performed += OnCancelClick;
+        _goBackAction.Enable();
         
         screens = new Dictionary<ScreenType, MenuScreen> {
             {ScreenType.Title, titleScreen},
@@ -33,17 +43,25 @@ public class UIController : MonoBehaviour
         ShowScreen(ScreenType.MainMenu);
     }
 
-    private void ShowScreen(ScreenType type) {
+    private void OnCancelClick(InputAction.CallbackContext obj)
+    {
+        _activeScreen.OnCancelClick();
+    }
+
+    public void ShowScreen(ScreenType type) {
         foreach (var kv in screens) {
             bool isActive = (kv.Key == type);
             if (isActive)
             {
                 kv.Value.Show();
+                kv.Value.IsActive = true;
+                _activeScreen = kv.Value;
                 Debug.Log($"[UIManager] ShowScreen {kv.Key}");
             }
             else
             {
                 kv.Value.Hide();
+                kv.Value.IsActive = false;
             }
         }
     }

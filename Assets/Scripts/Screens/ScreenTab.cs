@@ -32,6 +32,7 @@ namespace Screens
 
         private void OnNavigation(InputAction.CallbackContext obj)
         {
+            if (EventSystem.current.currentSelectedGameObject != null) return;
             SelectDefaultSelection();
         }
 
@@ -40,10 +41,10 @@ namespace Screens
             if(!_isActive) return;
             if (_defaultSelection == null)
             {
-                Debug.Log($"[ScreenTab] OnNavigation. defaultSelection is null");
+                Debug.LogError($"[ScreenTab] OnNavigation. defaultSelection is null");
             }
-            if (EventSystem.current.currentSelectedGameObject != null) return;
-            
+           if (EventSystem.current.currentSelectedGameObject == _defaultSelection) return;
+           
             
             EventSystem.current.SetSelectedGameObject(_defaultSelection);
         }
@@ -55,12 +56,12 @@ namespace Screens
 
         public virtual void Show()
         {
-            SelectDefaultSelection();
             _canvasGroup.alpha = 1f;
             _canvasGroup.interactable = true;
             _canvasGroup.blocksRaycasts = true;
             _isActive = true;
             OnTabOnen?.Invoke(_tabType);
+            SelectDefaultSelection();
         }
 
         public virtual void Hide()
