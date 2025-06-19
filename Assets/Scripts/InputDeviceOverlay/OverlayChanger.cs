@@ -13,6 +13,7 @@ namespace InputDeviceOverlay
          private ControllerType _controllerTypeCurrent;
          private Tween _currentTween;
          
+         
          private void OnValidate()
          {
              _overlayUnitsList = new List<OverlayUnit>(GetComponentsInChildren<OverlayUnit>());
@@ -30,13 +31,19 @@ namespace InputDeviceOverlay
         {
             ControllerDetector.Instance.OnControllerChanged += OnOverlayChanged;
             _controllerTypeCurrent = ControllerDetector.Instance.CurrentControlsType;
+            ControllerDetector.Instance.ForceUpdateStatus();
+            _overlayUnits[_controllerTypeCurrent].CanvasGroup.alpha = 1f;
+            _overlayUnits[_controllerTypeCurrent].Show();
         }
 
         private void OnOverlayChanged(ControllerType controllerType)
         {
-           _overlayUnits[_controllerTypeCurrent].CanvasGroup.alpha = 0f; 
-           SwitchOverlay(_overlayUnits[controllerType].CanvasGroup);
+            
+           _overlayUnits[_controllerTypeCurrent].Hide(); 
+           
+            SwitchOverlay(_overlayUnits[controllerType].CanvasGroup);
            _controllerTypeCurrent = controllerType;
+           _overlayUnits[_controllerTypeCurrent].Show();
         }
       
         private void SwitchOverlay(CanvasGroup target)
