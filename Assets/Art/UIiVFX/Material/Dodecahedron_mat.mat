@@ -69,7 +69,7 @@ Material:
     - _Activate_Target_3: 0
     - _Activate_Target_4: 1
     - _AlphaCutoff: 0.5
-    - _Animation_speed: 0.4
+    - _Animation_speed: 0.3
     - _Debug_Mask: 0
     - _DefaultOutlineOpacity: 0.2
     - _DefaultShrink: 0.155
@@ -78,14 +78,14 @@ Material:
     - _FrontFace_Intensity: 0.69
     - _InfluenceRadius: 0.5
     - _MatCapSwitch: 1
-    - _NormalPush: 0.14
+    - _NormalPush: 0.5
     - _Outline_Opacity: 36
     - _PannerX: 1
     - _PannerY: 0
     - _QueueControl: -1
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Shrink_Faces_Amplitude: -0.07
+    - _Shrink_Faces_Amplitude: 0.32
     - _Stretching: 0
     - _TargetMode: 0
     - _TileX: 0.06
