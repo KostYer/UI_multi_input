@@ -1446,6 +1446,7 @@ GameObject:
   - component: {fileID: 1238817675}
   - component: {fileID: 1238817677}
   - component: {fileID: 1238817676}
+  - component: {fileID: 1238817678}
   m_Layer: 0
   m_Name: VFX_projection
   m_TagString: Untagged
@@ -1470,7 +1471,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 248, y: -33}
-  m_SizeDelta: {x: 1658.88, y: 933.12}
+  m_SizeDelta: {x: 1692.0576, y: 951.7824}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1238817676
 MonoBehaviour:
@@ -1507,6 +1508,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1238817674}
   m_CullTransparentMesh: 1
+--- !u!225 &1238817678
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1238817674}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!224 &1332195392 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2976820900978098730, guid: a51ce072551457b40b5a23999f17f971,
@@ -3690,6 +3703,17 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2536773444456178147, guid: ce98a71ca61adb144a806d9529d926df,
+        type: 3}
+      propertyPath: _rawImage
+      value: 
+      objectReference: {fileID: 1238817678}
+    - target: {fileID: 2536773444456178147, guid: ce98a71ca61adb144a806d9529d926df,
+        type: 3}
+      propertyPath: _settingsSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 8206c40e762244e468a00ac623b2fbcb,
+        type: 2}
     - target: {fileID: 2583651089633629170, guid: ce98a71ca61adb144a806d9529d926df,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
