@@ -2,6 +2,7 @@
 Link на гугл драйв (доступ відкритий) https://drive.google.com/file/d/10ryy5DnktJQVLoFGUlN6kP_ht5ZeOatD/view?usp=sharing
 Білд лежить в D:\Gamedev\Multi_Input_UI\Assets\BuildLast
 Unity version - 2022.3.25
+робоча сцена - Scenes\SampleScene
 
 1. Код
 Загалом - компактні модульні класи з акцентом на Single Responsibility.
