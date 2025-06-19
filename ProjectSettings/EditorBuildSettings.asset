@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/DodecahedronScene.unity
+    guid: e4b225c5d10cb96408490687d53297ed
   m_configObjects: {}
